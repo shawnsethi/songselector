@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Import";
+}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#helpmodal").click(function () {
+            $("#dialog").dialog({ width: 560 });
+        });
+	 });
+	</script>
+
+
+<div class="mainpage center">
+<h2>Import Spotify Tracks</h2>
+<a href="#" id="helpmodal">Help Popup</a><br /><br />
+<div>Paste as many Spotify URIs as you want here (one per line).  These should all start with "spotify:track:"</div>
+    <form method="post" action="/SongManager/Import">
+    <textarea cols="50" rows="30" name="raw"></textarea><br />
+    <input type="submit" value="Import!" />
+    </form>
+    <br />
+<div>
+    Please be patient while importing.  The Echonest API only allows 120 calls per minute.<br /><br />
+    @Html.ActionLink("Back to List", "Index")
+</div>
+    </div><br /><br />
+
+  <div id="dialog" title="Help">
+	<img src="/Content/images/spotify_uri.jpg">
+</div>

@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SongSelector.Models.Song>
+
+@helper Truncate(string input)
+    {
+    if ( (input == null) || (input.Length <= 50) )
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, 50)<text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "Spotify SongSelector";
+}
+
+<div id="top"></div>
+
+<div class="mainpage">
+
+<h1 class="center">The Spotify SongSelector</h1>
+<h3 class="center">@TempData["message"]</h3>
+
+
+
+<p class="center">
+    @Html.ActionLink("Import tracks with Spotify URIs", "Import")<br />
+    @Html.ActionLink("Add track manually", "Create")
+</p>
+<br />
+
+    @if (Model.Count() > 0) {
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BPM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Key)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Truncate(item.Artist)
+        </td>
+        <td>
+            @Truncate(item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BPM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td class="right">
+            @Html.ActionLink("SELECT SONG", "Details", new { id=item.SongID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.SongID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SongID })
+        </td>
+    </tr>
+}
+
+    
+    </table>
+    }
+    else {
+     <h2 class="center">No tracks!  Import some songs!</h2>   
+    }
+
+    <br />
+    @if (ViewBag.unfoundSongs.Count > 0) { 
+    <div class="breaker"></div><br />
+    <div class="bold center">Not found in Echonest</div>
+    <div class="center">Try editing Artist/Title of the following tracks:</div>
+    <br />
+    <table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpotifyID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.unfoundSongs) {
+    <tr>
+        <td>
+            @Truncate(item.Artist)
+        </td>
+        <td>
+            @Truncate(item.Title)
+        </td>
+        <td>
+            @item.SpotifyID
+        </td>
+        <td class="right">
+            @Html.ActionLink("Edit", "Edit", new { id=item.SongID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SongID })
+        </td>
+    </tr>
+}
+
+</table>
+    }
+    <br /><br /><br /><br /><br />
+    </div>

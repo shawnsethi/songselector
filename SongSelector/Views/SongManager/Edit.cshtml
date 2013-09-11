@@ -1,0 +1,69 @@
+﻿@model SongSelector.Models.Song
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="mainpage center">
+<h2>Edit Track</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.SongID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Artist)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Artist)
+            @Html.ValidationMessageFor(model => model.Artist)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BPM)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BPM)
+            @Html.ValidationMessageFor(model => model.BPM)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Key)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Key)
+            @Html.ValidationMessageFor(model => model.Key)
+        </div>
+    
+    @*
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpotifyID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SpotifyID)
+            @Html.ValidationMessageFor(model => model.SpotifyID)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    <p>Note:  Changing the Artist or Title here will search EchoNest and replace BPM and Key if found.</p>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

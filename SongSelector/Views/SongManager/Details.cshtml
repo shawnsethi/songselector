@@ -1,0 +1,84 @@
+﻿@model SongSelector.Models.Song
+
+@helper Truncate(string input)
+    {
+    if ( (input == null) || (input.Length <= 50) )
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, 50)<text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "Spotify SongSelector -- Current Track:  " + Html.DisplayFor(model => model.Artist) + " - " + Html.DisplayFor(model => model.Title);
+}
+<div class="mainpage"><div class="center">
+<h2>Current Track:  @Html.DisplayFor(model => model.Artist) -  @Html.DisplayFor(model => model.Title)</h2>
+    
+
+       @Html.DisplayNameFor(model => model.BPM):  
+
+       @Html.DisplayFor(model => model.BPM)<br />
+
+       @Html.DisplayNameFor(model => model.Key): 
+
+       @Html.DisplayFor(model => model.Key)<br />
+
+       @Html.DisplayNameFor(model => model.SpotifyID): 
+
+       @Html.DisplayFor(model => model.SpotifyID)<br />
+
+       @Html.ActionLink("Edit current track", "Edit", new { id=Model.SongID })
+    </div><br /><br />
+<h3 class="center">Compatible songs:</h3>
+    <table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th class="width100">
+            @Html.DisplayNameFor(model => model.BPM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Key)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.relatedSongs) {
+    <tr>
+        <td>
+            @Truncate(item.Artist)
+        </td>
+        <td>
+            @Truncate(item.Title)
+        </td>
+        <td>
+            @item.BPM
+        </td>
+        <td>
+            @item.Key
+        </td>
+        <td class="right">
+            @Html.ActionLink("SELECT SONG", "Details", new { id=item.SongID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.SongID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SongID })
+        </td>
+    </tr>
+}
+    </table>
+
+
+<p class="center">
+    
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+    <br /><br /><br /><br /><br /><br />
+    </div>

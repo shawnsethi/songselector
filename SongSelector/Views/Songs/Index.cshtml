@@ -1,0 +1,16 @@
+﻿@model IEnumerable<SongSelector.Models.Song>
+
+@{
+    ViewBag.Title = "Spotify SongSelector";
+}
+
+<h2>Songlist</h2>
+<p>
+    Select from @Model.Count() songs:
+</p>
+<ul>
+    @foreach (var song in Model)
+    {
+        <li>@Html.ActionLink(@song.Title, "Details", new { id = song.SongID })</li>
+    }
+</ul>

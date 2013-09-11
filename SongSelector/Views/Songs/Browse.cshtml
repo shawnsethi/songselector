@@ -1,0 +1,16 @@
+﻿@model SongSelector.Models.Playlist
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>Browsing playlist:  @Model.Name</h2>
+
+<ul>
+    @foreach (var song in Model.Songs)
+    {
+        <li>
+            @Html.ActionLink(song.Title, "Details", new { id = song.SongID });
+        </li>
+    }
+</ul>
